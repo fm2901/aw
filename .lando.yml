@@ -1,0 +1,6 @@
+name: aw
+recipe: lamp
+config:
+  webroot: public
+  php: 8.3
+  port: 80
