@@ -12,11 +12,13 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
     public function index(Request $request): View
-    {
+    {  
         return view('orders.index', [
             'orders' => Order::all(),
         ]);
@@ -37,6 +39,28 @@ class OrderController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        $input_data = $request->all();
+        $validator = Validator::make(
+            $input_data, [
+            'photo.*' => 'required|mimes:jpg,jpeg,png|max:20000'
+        ],[
+                'photo.*.required' => 'Пожалуйста выберите фотографии',
+                'photo.*.mimes' => 'Поддерживаются только форматы jpg, jpeg, png',
+                'photo.*.max' => 'Максимальный размер файла 20MB',
+            ]
+        );
+        $filePath = "";
+        
+        if(!$validator->fails()) {
+            $file = $request->file('photo');
+    
+            $fileName = $file->getClientOriginalName();
+            $fileContent = file_get_contents($file->getRealPath());
+
+            $filePath = "/cars/".time()."_".$fileName;
+            Storage::put($filePath, $fileContent);  
+        }
+
         $order = Order::create([
             'user_id' => $request->user_id,
             'order_id' => $request->order_id,
@@ -48,8 +72,11 @@ class OrderController extends Controller
             'max_bid' => $request->max_bid,
             'damage_level' => $request->damage_level,
             'notes' => $request->notes,
-            'state' => $request->state
+            'state' => $request->state,
+            'photo' => $filePath
         ]);
+
+        
 
         return Redirect::route('orders.index');
     }

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('phone');
             $table->integer('vehicle_to');
             $table->integer('account_type');
-            $table->integer('client_id');
+            $table->string('client_id');
             $table->integer('manager')->nullable();
             $table->integer('deposit_min')->nullable();
             $table->integer('deposit')->nullable();

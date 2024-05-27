@@ -10,7 +10,11 @@
    </div>
     <div class="purchase__body">
         <div class="purchase__thumb">
-           <img src="/car.png" class="border-1 border-dark">
+            @if(empty($purchase->photo))
+                <img src="/cars/car.png" class="border-1 border-dark car-image">
+            @else
+                <img src="{{ $purchase->photo }}" class="border-1 border-dark car-image">
+            @endif   
        </div>
         <div class="purchase__info">
             <span class="purchase-title">{{ $purchase->year }} {{ $purchase->makeInfo->name }} {{ $purchase->model }} {{ $purchase->trim }}</span>
@@ -25,10 +29,11 @@
 
 
 <style>
+
     .purchase-show {
         display: flex;
         flex-direction: column;
-        gap: 15px;яфс, 0ясю.ю.юв.
+        gap: 15px;
         padding: 1rem;
     }
 
@@ -43,7 +48,7 @@
     }
 
     .purchase__thumb img {
-        width: 400px;
+        width: 80%;
     }
 
     .purchase-title {
@@ -71,6 +76,7 @@
         font-weight: 400;
         line-height: 21px;
         color: #504545;
+        margin-top: 3rem;
     }
 
 </style>

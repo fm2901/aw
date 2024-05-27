@@ -6,7 +6,7 @@
                     <h2 class="card-header">Create new order</h2>
                     <small class="mb-3  col-md-6 col-sm-12">Please limit adding 1 vehicle per order. If you would like to add more than 1 vehicle, create separate orders to avoid delays.</small>
                     <hr class="my-0">
-                    <form action="{{ route('orders.store') }}">
+                    <form action="{{ route('orders.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-6">
@@ -80,7 +80,12 @@
                                 <div class="mb-3">
                                     <label for="max_bid" class="form-label">Notes</label>
                                     <textarea name="notes" class="form-control" cols="30" rows="10">{{ old('notes') }}</textarea>
-                                    <x-input-error :messages="$errors->get('max_bid')" class="mt-2" />
+                                    <x-input-error :messages="$errors->get('notes')" class="mt-2" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="max_bid" class="form-label d-block mb-2">Upload sample photo</label>
+                                    <input type="file" name="photo">
+                                    <x-input-error :messages="$errors->get('photo')" class="mt-2" />
                                 </div>
                                 <div class="mb-3">
                                     <button class="btn btn-primary">Submit</button>

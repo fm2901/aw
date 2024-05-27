@@ -6,7 +6,11 @@
     <div class="order__body">
         <div class="order-image">
             <a href="{{ route('purchases.show', [$purchase->id]) }}">
-                <img src="/car.png" class="border-1 border-dark">
+                @if(empty($purchase->photo))
+                    <img src="/cars/car.png" class="border-1 border-dark car-image">
+                @else
+                    <img src="{{ $purchase->photo }}" class="border-1 border-dark car-image">
+                @endif    
             </a>
         </div>
         <div class="order-description">

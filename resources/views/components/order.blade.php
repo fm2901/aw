@@ -11,7 +11,11 @@
     </div>
     <div class="order__body">
         <div class="order-image">
-            <img src="/car.png" class="border-1 border-dark car-image">
+                @if(empty($purchase->photo))
+                    <img src="/cars/car.png" class="border-1 border-dark car-image">
+                @else
+                    <img src="{{ $purchase->photo }}" class="border-1 border-dark car-image">
+                @endif   
         </div>
         <div class="order-description">
             <span class="order-label">Date added: <span class="order-info">{{ $order->created_at }}</span></span>
