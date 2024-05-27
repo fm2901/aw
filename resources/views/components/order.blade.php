@@ -11,10 +11,10 @@
     </div>
     <div class="order__body">
         <div class="order-image">
-                @if(empty($purchase->photo))
+                @if(empty($order->photo))
                     <img src="/cars/car.png" class="border-1 border-dark car-image">
                 @else
-                    <img src="{{ $purchase->photo }}" class="border-1 border-dark car-image">
+                    <img src="{{ $order->photo }}" class="border-1 border-dark car-image">
                 @endif   
         </div>
         <div class="order-description">
