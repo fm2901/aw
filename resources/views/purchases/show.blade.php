@@ -2,7 +2,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             <div class="col-md-12 card">
-                <x-show-purchase :purchase="$purchase"/>
+                <x-show-purchase :purchase="$purchase" :invoice="$invoice"/>
             </div>
         </div>
     </div>

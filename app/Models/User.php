@@ -39,6 +39,7 @@ class User extends Authenticatable
         'vehicle_to',
         'account_type',
         'client_id',
+        'experiense_period',
     ];
 
     /**
@@ -91,10 +92,10 @@ class User extends Authenticatable
         );
     }
 
-    public function vehicles()
+    public function toExport()
     {
         return $this->morphedByMany(
-            VehicleTo::class,
+            ToExport::class,
             'purchasable',
             'purchasable'
         );
@@ -111,9 +112,19 @@ class User extends Authenticatable
         return implode($delimiter, $res);
     }
 
+    public function managerInfo()
+    {
+        return $this->belongsTo(User::class,'id');
+    }
+
     public function countryInfo()
     {
         return $this->belongsTo(Country::class,'country');
+    }
+
+    public function accountType()
+    {
+        return $this->belongsTo(AccountType::class,'account_type');
     }
 
     public static function  createUser(int $type, Request $request): User
@@ -132,38 +143,12 @@ class User extends Authenticatable
             'country' => $request->country,
             'zip' => $request->zip,
             'phone' => $request->phone,
-            'vehicle_to' => $request->vehicle_to ?? 0,
+            'vehicle_to' => $request->vehicle_to,
             'account_type' => $type,
             'client_id' => Helper::getRandomIdWithCheck((new User), 'client_id', 6)
         ]);
 
-        $fields = [
-            'purchase_purposes' => PurchasePurpose::class,
-            'car_states' => CarState::class,
-            'to_export' => ToExport::class,
-            'price_ranges' => PriceRange::class,
-            'experiense_periods' => ExperiensePeriod::class,
-        ];
-
-        foreach ($fields as $field => $modelName) {
-
-            if (!is_array($request->{$field})) {
-                Purchasable::create([
-                    'user_id' => $user->id,
-                    'purchasable_id' => $request->{$field},
-                    'purchasable_type' => $modelName
-                ]);
-                continue;
-            }
-
-            foreach ($request->{$field} as $purchasable_id) {
-                Purchasable::create([
-                    'user_id' => $user->id,
-                    'purchasable_id' => $purchasable_id,
-                    'purchasable_type' => $modelName
-                ]);
-            }
-        }
+        Purchasable::updateList($request, $user->id);
 
         return $user;
     }
@@ -177,6 +162,16 @@ class User extends Authenticatable
         return $this->middle_name . ', ' . $this->first_name . ' ' . $this->last_name;
     }
 
+    public function getShortName(): string
+    {
+        if ($this->account_type == 1) {
+            return $this->name;
+        }
+
+        return $this->first_name . ' ' . substr($this->middle_name,0,1) . '. ' . substr($this->last_name,0,1) . '.';
+    }
+
+
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class);
@@ -186,4 +181,5 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Permission::class);
     }
+
 }

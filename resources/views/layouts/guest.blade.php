@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="/assets/vendor/css/core.css" class="template-customizer-core-css" />
         <link rel="stylesheet" href="/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
         <link rel="stylesheet" href="/assets/css/demo.css" />
+        <link rel="stylesheet" href="/assets/css/style.css" />
         <link rel="stylesheet" href="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
         <link rel="stylesheet" href="/assets/vendor/css/pages/page-auth.css" />
         <script src="/assets/vendor/js/helpers.js"></script>
@@ -28,6 +29,7 @@
         <script src="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
         <script src="/assets/vendor/js/menu.js"></script>
         <script src="/assets/js/main.js"></script>
+        <script src="/assets/js/script.js"></script>
         <script async defer src="https://buttons.github.io/buttons.js"></script>
     </head>
     <body class="font-sans text-gray-900 antialiased">

@@ -29,6 +29,7 @@ return new class extends Migration
             $table->integer('deposit_min')->nullable();
             $table->integer('deposit')->nullable();
             $table->integer('buy_power')->nullable();
+            $table->integer('experiense_period')->nullable();
         });
     }
 

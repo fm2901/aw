@@ -24,4 +24,14 @@ class Order extends Model
     {
         return $this->belongsTo(DamageLevel::class,'damage_level');
     }
+    public function client()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
+
+    public function photos()
+    {
+        return $this->morphToMany(Files::class, 'fileble', 'fileble', 'fileble_id', 'file_id');
+    }
+
 }

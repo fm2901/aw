@@ -1,91 +1,84 @@
 @props([
-    'purchase',
+'purchase',
 ])
 
 <div class="order">
-    <div class="order__body">
-        <div class="order-image">
-            <a href="{{ route('purchases.show', [$purchase->id]) }}">
-                @if(empty($purchase->photo))
-                    <img src="/cars/car.png" class="border-1 border-dark car-image">
-                @else
-                    <img src="{{ $purchase->photo }}" class="border-1 border-dark car-image">
-                @endif    
-            </a>
+
+    <div class="row justify-content-center">
+        <div class="col-sm-12 col-md-4 col-lg-2">
+            <div style="height: 100%">
+                <div class="order-image">
+                        <div class="swiper mySwiper">
+                            <div class="swiper-wrapper">
+                                @foreach($purchase->photos as $photo)
+                                    <div class="swiper-slide">
+                                        <img src="{{ $photo->path }}" alt="">
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                    <a href="{{ route('purchases.edit', [$purchase->id]) }}">Edit</a>
+                </div>
+            </div>
         </div>
-        <div class="order-description">
-            <a href="{{ route('purchases.show', [$purchase->id]) }}">
-                <span class="order-label">{{ $purchase->year }} {{ $purchase->makeInfo->name }} {{ $purchase->model }} {{ $purchase->trim }}</span>
-            </a>
-            <span class="order-label">VIN: <span class="order-info">{{ $purchase->vin }}</span></span>
-            <span class="order-label">Purchase ID: <span class="order-info">{{ $purchase->purchase_id }}</span></span>
-            <span class="order-label">Award Date: <span class="order-info">{{ $purchase->award_date }}</span></span>
-            <span class="order-label">Outstanding Balance: <span class="order-info balace-<?=$purchase->balance > 0 ? 1 : 0;?>">${{ number_format($purchase->balance, 2) }}</span></span>
+        <div class="col-sm-12 col-md-8 col-lg-10">
+            <div class="order-description mt-2">
+                <a href="{{ route('purchases.show', [$purchase->id]) }}" class="btn-link">
+                    <span
+                        class="order-label mb-1">{{ $purchase->year }} {{ $purchase->makeInfo->name }} {{ $purchase->model }} {{ $purchase->trim }}</span>
+                </a>
+                <span class="order-label mb-1">VIN: <span class="order-info">{{ $purchase->vin }}</span></span>
+                <span class="order-label mb-1">Purchase ID: <span
+                        class="order-info">{{ $purchase->purchase_id }}</span></span>
+                <span class="order-label mb-1">Award Date: <span class="order-info">{{ $purchase->award_date }}</span></span>
+                <span class="order-label mb-1">Outstanding Balance: <span
+                        class="order-info balace-<?=$purchase->balance > 0 ? 1 : 0;?>">${{ number_format($purchase->balance, 2) }}</span></span>
+            </div>
         </div>
     </div>
 </div>
 
 <style>
-    .balace-0 {
-        color: #D33535 !important;
+
+    .swiper-slide {
+        width: 100%;
+        height: auto;
+    }
+    .car-image {
+        border-radius: 10px;
+        border: solid 3px black;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     }
 
-    .balace-1 {
-        color: #13A355 !important;
-    }
-
-    .orders {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
+    .order-image img {
+        width: 100%;
+        height: auto;
     }
 
     .order {
         display: flex;
         flex-direction: column;
-        gap: 8px;
         background-color: #ffffff;
         padding: 20px;
         border-top: 1px solid #C9C9C9;
     }
 
-    .order__body {
-        display: flex;
-        gap: 8px;
+    .order:first-child {
+        border-top: none;
     }
 
     .order-description {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: center;
+        align-items: flex-start;
     }
 
     .order-image img {
-        width: 155px;
-        height: 155px;
-    }
-
-    .order-title {
-        font-family: Inter;
-        font-size: 26px !important;
-        font-weight: 700;
-        line-height: 32px;
-        color: #000000;
-    }
-
-    .order-state-1 {
-        color: #DEA000;
-        font-width: 400;
-    }
-
-    .order-state-2 {
-        color: #048540;
-        font-width: 400;
-    }
-
-    .order-state-3 {
-        color: #D13333;
-        font-width: 400;
+        width: 100%;
+        height: auto;
     }
 
     .order-label {

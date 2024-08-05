@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Models\OrderState;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,23 +29,89 @@ class Helper
         return $number;
     }
 
-    public static function getOptions(Collection $data, Array|String $selected=""): string
+    public static function getOptions(Collection $data, Array|String $selected=null): string
     {
         $options = "";
         if(is_array($selected)) {
             foreach ($data as $d)
             {
-                $selected = in_array($d->id, $selected) ? "selected" : "";
-                $options .= "<option ".$selected." value='".$d->id."'>".$d->name."</option>";
+                $sel = in_array($d->id, $selected) ? "selected" : "";
+                $options .= "<option ".$sel." value='".$d->id."'>".$d->name."</option>";
             }
         } else {
             foreach ($data as $d)
             {
-                $selected = $d->id == $selected ? "selected" : "";
-                $options .= "<option ".$selected." value='".$d->id."'>".$d->name."</option>";
+                $sel = $d->id == $selected ? "selected" : "";
+                $options .= "<option ".$sel." value='".$d->id."'>".$d->name."</option>";
             }
         }
 
         return $options;
+    }
+
+    public static function checkKeyValInCollection($collection, $key, $value)
+    {
+        if (!is_a($collection, 'Illuminate\Database\Eloquent\Collection')) {
+            return false;
+        }
+
+        foreach ($collection as $item) {
+            if ($item->{$key} == $value) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static function setChecked($collection, $key, $value) {
+        if(!is_a($collection, 'Illuminate\Database\Eloquent\Collection') && $collection == $value) {
+            echo "checked";
+            return;
+        }
+        if (self::checkKeyValInCollection($collection, $key, $value)) {
+            echo "checked";
+        }
+    }
+
+    public static function printOrdersMenu($current=0) {
+        $currentState = OrderState::find($current);
+        $selected = $current > 0 ? $currentState->name : "All";
+        $menu = '<div class="dropdown menu-dropdown col-md-6 col-sm-6 w-50" style="text-align:end">
+                        <a class="btn dropdown-toggle font-black" style="color: black; font-size: 1.3em" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            '.$selected.'
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="' . route('orders.index') . '?state=0">All</a>';
+        foreach (OrderState::all() as $state) {
+            $menu .= '<a class="dropdown-item" href="' . route('orders.index') . '?state='.$state->id.'">'.$state->name.'</a>';
+        }
+
+        $menu .=      '</div>
+                    </div>';
+
+        return $menu;
+    }
+    public static function printPurchasesMenu($current='') {
+        $sortDirArr = [
+            "award_date&sort=asc" => "Award Date (Newest First)",
+            "award_date&sort=desc" => "Award Date (Oldest First)",
+            "year&sort=asc" => "Year (Newest First)",
+            "year&sort=desc" => "Year (Oldest First)",
+            "balance&sort=asc" => "With Unpaid Balance",
+            "balance&sort=desc" => "Without Unpaid Balance",
+        ];
+
+        $menu = '<div class="dropdown col-md-6 col-sm-7 w-50" style="text-align:end">
+                        <a class="btn dropdown-toggle font-black" style="color: black; font-size: 1.3em" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            '.$sortDirArr[$current].'
+        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">';
+        foreach ($sortDirArr as $k => $v)
+            $menu .= '<a class="dropdown-item" href="'. route('purchases.index') . '?sortBy='.$k.'">'.$v.'</a>';
+        $menu .= '</div>
+                    </div>';
+
+        return $menu;
     }
 }

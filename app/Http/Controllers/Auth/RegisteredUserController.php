@@ -15,12 +15,14 @@ use App\Models\ToExport;
 use App\Models\User;
 use App\Models\VehicleTo;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Psy\CodeCleaner\UseStatementPass;
 
 class RegisteredUserController extends Controller
 {
@@ -37,7 +39,8 @@ class RegisteredUserController extends Controller
         $toExport = ToExport::all();
         $priceRanges = PriceRange::all();
         $experiensePeriods = ExperiensePeriod::all();
-        return view('auth.register', compact(['type', 'countries', 'accountTypes', 'vehicleTo', 'purchasePurposes', 'carStates', 'toExport', 'priceRanges', 'experiensePeriods']));
+        $user = User::find(1);
+        return view('auth.register', compact(['type', 'countries', 'accountTypes', 'vehicleTo', 'purchasePurposes', 'carStates', 'toExport', 'priceRanges', 'experiensePeriods', 'user']));
     }
 
     /**
@@ -70,6 +73,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('orders.index', absolute: false));
     }
 }

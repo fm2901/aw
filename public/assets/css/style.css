@@ -1,0 +1,42 @@
+* {
+    font-family: Calibri;
+}
+
+.form-label {
+    margin-bottom: 0;
+    text-transform: none;
+    color: black;
+}
+.form-control, .input-group-text {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;
+}
+
+.form-control:focus {
+    outline: 0;
+    box-shadow: none;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;
+}
+
+input[type=checkbox], input[type=radio] {
+    margin-bottom: 0.6rem;
+}
+
+.add-btn {
+    position: fixed;
+    right: 5%;
+    bottom: 4%;
+    font-size: 4em;
+    padding: 20px 20px;
+    border-radius: 36px;
+    background-color: yellow;
+    margin: 0;
+    line-height: 0.5em;
+    color: green;
+}
+
+
+

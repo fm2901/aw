@@ -7,12 +7,15 @@
                     <div class="card-body">
                         <!-- Logo -->
                         <div class="text-center mb-5">
+                            <a class="purchase-title" href="{{ env('LANDING_LINK') }}">
+                                <img src="/arrow-back.svg" alt="">
+                            </a>
                             <a href="{{ route('orders.index')}}">
                                 <img src="logo.png" class="w-75" alt="">
                             </a>
                         </div>
                         <!-- /Logo -->
-                        <h4 class="mb-2 text-black fs-3 text-center mt-5 mb-5">Sign in to Your Account</h4>
+                        <h4 class="mb-2 text-black fs-3 text-center mt-5">Sign in to Your Account</h4>
 
                         <x-auth-session-status class="mb-4" :status="session('status')" />
                         <form id="formAuthentication" class="mb-3" action="" method="POST" {{ route('login') }}>
@@ -22,7 +25,7 @@
                                     type="text"
                                     class="form-control"
                                     id="email"
-                                    placeholder="Enter your email or username"
+                                    placeholder="Email"
                                     name="email"
                                     :value="old('email')" required autofocus
                                 />
@@ -30,7 +33,7 @@
                             </div>
                             <div class="mb-3 form-password-toggle">
                                 <div class="d-flex justify-content-between">
-                                    <a href="auth-forgot-password-basic.html">
+                                    <a href="{{ route('password.email') }}">
                                         <small>Forgot Password?</small>
                                     </a>
                                 </div>
@@ -38,13 +41,13 @@
                                     <input
                                         id="password"
                                         class="form-control"
-                                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                        placeholder="Password"
                                         aria-describedby="password"
                                         type="password"
                                         name="password"
                                         required autocomplete="current-password"
                                     />
-                                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                    <span class="input-group-text cursor-pointer"><i class="bx bx-show"></i></span>
                                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                 </div>
                             </div>

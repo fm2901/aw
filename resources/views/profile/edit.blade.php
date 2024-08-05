@@ -3,7 +3,8 @@
         <h4 class="py-3 mb-4">
             <span class="text-muted fw-light">Account Settings /</span> Account
         </h4>
-        <div class="row">
+        <form action="{{ route('profile.edit_admin') }}"></form>
+        <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card mb-4 p-3">
                     <h5 class="card-header">{{ $user->getName() }}</h5>
@@ -44,24 +45,24 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-lg-4 col-md-5 col-sm-12">
                 <div class="card">
                     <h5 class="card-header">Change password</h5>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4 text-center">
-                                <form method="POST" action="{{ route('password.change') }}">
-                                    @csrf
-                                    @method('put')
-                                    <div class="form-group mb-3">
-                                        <input class="form-control mb-2" type="password" name="password" placeholder="New password">
-                                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                                        <input class="form-control" type="password" name="password_confirmation" placeholder="Repeat new password">
-                                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-                                    </div>
-                                    <button type="submit" class="btn btn-danger deactivate-account">Change</button>
-                                </form>
+                        <form method="POST" action="{{ route('password.change') }}">
+                            @csrf
+                            @method('put')
+                            <div class="form-group mb-3">
+                                <input class="form-control mb-2" type="password" name="password" placeholder="New password">
+                                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                <input class="form-control" type="password" name="password_confirmation" placeholder="Repeat new password">
+                                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                             </div>
-                        </div>
+                            <button type="submit" class="btn btn-danger deactivate-account float-end">
+                                Change <i class="bx bx-edit-alt"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

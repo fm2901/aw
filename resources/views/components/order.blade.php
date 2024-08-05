@@ -1,29 +1,50 @@
 @props([
-    'order',
+'order',
 ])
 
 <div class="order">
     <div class="order__header">
             <span class="order-title">
+                <a href="{{ route('orders.edit', $order->id) }}">
                 Order ID: {{ $order->order_id }}
-                <span class="order-state-{{$order->state}}">({{ $order->stateInfo->name }})</span>
+
+                    <span class="order-state-{{$order->state}}">({{ $order->stateInfo->name }})</span>
+                </a>
             </span>
     </div>
-    <div class="order__body">
-        <div class="order-image">
-                @if(empty($order->photo))
-                    <img src="/cars/car.png" class="border-1 border-dark car-image">
-                @else
-                    <img src="{{ $order->photo }}" class="border-1 border-dark car-image">
-                @endif   
+    <div class="row justify-content-center">
+        <div class="col-sm-12 col-md-4 col-lg-3">
+            <div style="height: 100%;">
+                <div class="order-image">
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            @foreach($order->photos as $photo)
+                                <div class="swiper-slide">
+                                    <img src="{{ $photo->path }}" alt="">
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="order-description">
-            <span class="order-label">Date added: <span class="order-info">{{ $order->created_at }}</span></span>
-            <span class="order-label">Make: <span class="order-info">{{ $order->makeInfo->name }}</span></span>
-            <span class="order-label">Model: <span class="order-info">{{ $order->model }}</span></span>
-            <span class="order-label">Max Miles: <span class="order-info">{{ $order->max_miles }}</span></span>
-            <span class="order-label">Desired Max Bid: <span class="order-info">${{ $order->max_bid }}</span></span>
-            <span class="order-label">Damage Level: <span class="order-info">{{ $order->damageLevelInfo->name }}</span></span>
+        <div class="col-sm-12 col-md-8 col-lg-9">
+                <div class="order-description mt-2">
+                    <span class="order-label mb-1">ID: <span class="order-info">{{ $order->id }}</span></span>
+                    <span class="order-label mb-1">Client: <span class="order-info">{{ $order->client->name }} {{ $order->client->middle_name }} {{ $order->client->last_name }}</span></span>
+                    <span class="order-label mb-1">Date added: <span class="order-info">{{ \Carbon\Carbon::parse($order->created_at)->format('d.m.Y H:i:s') }}</span></span>
+                    <span class="order-label mb-1">Make: <span
+                            class="order-info">{{ $order->makeInfo->name }}</span></span>
+                    <span class="order-label mb-1">Model: <span class="order-info">{{ $order->model }}</span></span>
+                    <span class="order-label mb-1">Max Miles: <span
+                            class="order-info">{{ $order->max_miles }}</span></span>
+                    <span class="order-label mb-1">Desired Max Bid: <span
+                            class="order-info">${{ $order->max_bid }}</span></span>
+                    <span class="order-label">Damage Level: <span
+                            class="order-info">{{ $order->damageLevelInfo->name }}</span></span>
+            </div>
         </div>
     </div>
     <div class="order__notes">
@@ -32,6 +53,17 @@
 </div>
 
 <style>
+    .car-image {
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    }
+    .flex-center {
+        height: 100%;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+    }
+
     .orders {
         display: flex;
         flex-direction: column;
@@ -59,12 +91,13 @@
     .order-description {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: center;
+        align-items: flex-start;
     }
 
     .order-image img {
-        width: 155px;
-        height: 155px;
+        width: 100%;
+        height: auto;
     }
 
     .order-title {
