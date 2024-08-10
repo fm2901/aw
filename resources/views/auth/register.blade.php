@@ -12,8 +12,8 @@
                                 <img src="/logo.png" class="w-75" alt="">
                             </a>
                         </div>
-                        <h3 class="text-black text-center mb-3">Create Account</h3>
                             @if(is_null($type) || is_null(\App\Models\AccountType::find($type)))
+                                <p class="text-black text-center mb-3">Are you signing up as a business or individual?</p>
                                 <div class="mb-3">
                                     @foreach($accountTypes as $at)
                                         <a href="{{ route('register') }}/{{ $at->id }}" style="font-size: 1.7em;" class="btn btn-primary d-block p-1 mb-3"> {{ $at->name }}</a>

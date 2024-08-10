@@ -51,15 +51,15 @@
                                         <x-input-error :messages="$errors->get('vin')" class="mt-2"/>
                                     </div>
                                 </div>
-                                <div class="col-lg-12 col-sm-12">
+                                <!---<div class="col-lg-12 col-sm-12">
                                     <div class="mb-3">
                                         <label for="title" class="form-label">Title</label>
                                         <input type="text" class="form-control" name="title" :value="{{ old('title') }}" value="{{ $purchase->title }}">
                                         <x-input-error :messages="$errors->get('title')" class="mt-2"/>
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="mb-3">
-                                    <label for="make" class="form-label">Desired Make</label>
+                                    <label for="make" class="form-label">Make</label>
                                     <select name="make" class="form-control" required>
                                         {{!!\App\Helpers\Helper::getOptions($makes, $purchase->make)!!}}
                                     </select>
@@ -67,14 +67,14 @@
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
                                     <div class="mb-3">
-                                        <label for="model" class="form-label">Desired Model</label>
+                                        <label for="model" class="form-label">Model</label>
                                         <input type="text" class="form-control" name="model" :value="{{ old('model') }}" value="{{ $purchase->model }}">
                                         <x-input-error :messages="$errors->get('model')" class="mt-2"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
                                     <div class="mb-3">
-                                        <label for="year" class="form-label">Desired Year Range</label>
+                                        <label for="year" class="form-label">Year</label>
                                         <input type="number" class="form-control" name="year" :value="{{ old('year') }}" value="{{ $purchase->year }}">
                                         <x-input-error :messages="$errors->get('year')" class="mt-2"/>
                                     </div>

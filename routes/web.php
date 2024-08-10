@@ -18,8 +18,8 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/orders/create', [OrderController::class, 'create'])->name('orders.create')->middleware(['can:create orders']);
-    Route::get('/orders/{order}/edit/', [OrderController::class, 'edit'])->name('orders.edit')->middleware(['can:create orders']);
-    Route::put('/orders/{order}', [OrderController::class, 'update'])->name('orders.update')->middleware(['can:create orders']);
+    Route::get('/orders/{order}/edit/', [OrderController::class, 'edit'])->name('orders.edit')->middleware(['can:edit orders']);
+    Route::put('/orders/{order}', [OrderController::class, 'update'])->name('orders.update')->middleware(['can:edit orders']);
     Route::post('/orders', [OrderController::class, 'store'])->name('orders.store')->middleware(['can:create orders']);
     Route::get('/orders/', [OrderController::class, 'index'])->name('orders.index');
 

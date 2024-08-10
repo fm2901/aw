@@ -22,8 +22,13 @@
                         <x-order :order="$order"/>
                     @endforeach
                 </div>
+                <div class="row mt-4 mb-1">
+                    <div class="col">
+                        <h4 class="text-bold text-gray-600 text-center">To edit or delete an order, please contact your account manager.</h4>
+                    </div>
+                </div>
                 @if($pagesCount > 1)
-                    <x-pagination :pagesCount="$pagesCount" :curPage="$curPage"  :query="$query" :link="route('purchases.index')" :showCount="5" />
+                    <x-pagination :pagesCount="$pagesCount" :curPage="$curPage"  :query="$query" :link="route('orders.index')" :showCount="5" />
                 @endif
                 @if($orders->count() < 1)
                     <div class="mt-3 mb-3 text-center">

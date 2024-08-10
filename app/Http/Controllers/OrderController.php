@@ -38,10 +38,10 @@ class OrderController extends Controller
         }
 
         $totalRecords = Order::select('count(*) as allcount')->where($filter)->count();
-        $rowperpage = 10;
+        $rowperpage = 3;
         $curPage = intval($request->get("p")) > 0 ? $request->get("p") : 1;
         $start = ($curPage-1) * $rowperpage;
-        $pagesCount = round($totalRecords / $rowperpage);
+        $pagesCount = round($totalRecords / $rowperpage,0,PHP_ROUND_HALF_UP);
 
 
 
@@ -50,11 +50,15 @@ class OrderController extends Controller
                             ->take($rowperpage)
                             ->get();
 
+        $query = $request->query();
+        unset($query["p"]);
+
         return view('orders.index', [
             'orders' => $orders,
             'allCount'    => $totalRecords,
             'pagesCount'    => $pagesCount,
             'curPage'    => $curPage,
+            'query'    => http_build_query($query),
             'state'    => $request->query('state'),
         ]);
     }
@@ -165,8 +169,11 @@ class OrderController extends Controller
             Storage::put($filePath, $fileContent);
         }*/
 
+        $userId = $request->user()->hasRole('admin') ? $request->user_id : $request->user()->id;
+        $state = $request->user()->hasRole('admin') ? $request->state : 1;
+
         $order = Order::create([
-            'user_id' => $request->user_id,
+            'user_id' => $userId,
             'order_id' => $request->order_id,
             'make' => $request->make,
             'model' => $request->model,
@@ -176,7 +183,7 @@ class OrderController extends Controller
             'max_bid' => $request->max_bid,
             'damage_level' => $request->damage_level,
             'notes' => $request->notes,
-            'state' => $request->state,
+            'state' => $state,
         ]);
 
         $validator = Validator::make(

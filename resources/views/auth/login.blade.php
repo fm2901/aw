@@ -32,11 +32,6 @@
                                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
                             </div>
                             <div class="mb-3 form-password-toggle">
-                                <div class="d-flex justify-content-between">
-                                    <a href="{{ route('password.email') }}">
-                                        <small>Forgot Password?</small>
-                                    </a>
-                                </div>
                                 <div class="input-group input-group-merge">
                                     <input
                                         id="password"
@@ -48,7 +43,12 @@
                                         required autocomplete="current-password"
                                     />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-show"></i></span>
-                                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                    <x-input-error :messages="$errors->get('password')" class="mt-2 text-red-600" />
+                                </div>
+                                <div style="text-align: right">
+                                    <a href="{{ route('password.email') }}">
+                                        <small>Forgot Password?</small>
+                                    </a>
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -63,9 +63,9 @@
                         </form>
 
                         <p class="text-center">
-                            <span>New on our platform?</span>
+                            <span>Don't have an account with us?</span>
                             <a href="{{ route('register')}}">
-                                <span>Create an account</span>
+                                <span>Sign Up</span>
                             </a>
                         </p>
                     </div>

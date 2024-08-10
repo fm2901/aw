@@ -28,15 +28,17 @@
                                         <x-input-error :messages="$errors->get('order_id')" class="mt-2"/>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-lg-8 col-sm-12">
-                                    <div class="mb-3">
-                                        <label for="user_id" class="form-label">Client</label>
-                                        <select name="user_id" class="form-control" required>
-                                            {{!!\App\Helpers\Helper::getOptions($users)!!}}
-                                        </select>
-                                        <x-input-error :messages="$errors->get('user_id')" class="mt-2"/>
+                                @if(\Illuminate\Support\Facades\Auth::user()->hasRole('admin'))
+                                    <div class="col-md-6 col-lg-8 col-sm-12">
+                                        <div class="mb-3">
+                                            <label for="user_id" class="form-label">Client</label>
+                                            <select name="user_id" class="form-control" required>
+                                                {{!!\App\Helpers\Helper::getOptions($users)!!}}
+                                            </select>
+                                            <x-input-error :messages="$errors->get('user_id')" class="mt-2"/>
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                             </div>
 
                             <div class="row">
@@ -99,15 +101,17 @@
                                         <x-input-error :messages="$errors->get('damage_level')" class="mt-2"/>
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    <div class="mb-3">
-                                        <label for="state" class="form-label">Order state</label>
-                                        <select name="state" class="form-control" required>
-                                            {{!!\App\Helpers\Helper::getOptions($orderStates)!!}}
-                                        </select>
-                                        <x-input-error :messages="$errors->get('state')" class="mt-2"/>
+                                @if(\Illuminate\Support\Facades\Auth::user()->hasRole('admin'))
+                                    <div class="col-6">
+                                        <div class="mb-3">
+                                            <label for="state" class="form-label">Order state</label>
+                                            <select name="state" class="form-control" required>
+                                                {{!!\App\Helpers\Helper::getOptions($orderStates)!!}}
+                                            </select>
+                                            <x-input-error :messages="$errors->get('state')" class="mt-2"/>
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                             </div>
                             <div class="mb-3">
                                 <label for="max_bid" class="form-label">Notes</label>

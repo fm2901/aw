@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('make');
             $table->string('model');
             $table->string('years');
-            $table->string('colors');
-            $table->integer('max_miles');
-            $table->integer('max_bid');
+            $table->string('colors')->nullable();
+            $table->string('max_miles')->nullable();
+            $table->integer('max_bid')->nullable();
             $table->integer('damage_level');
             $table->string('notes')->nullable();
             $table->string('photo')->nullable();

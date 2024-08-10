@@ -5,11 +5,17 @@
 <div class="order">
     <div class="order__header">
             <span class="order-title">
-                <a href="{{ route('orders.edit', $order->id) }}">
+                @if(\Illuminate\Support\Facades\Auth::user()->hasRole('admin'))
+                    <a href="{{ route('orders.edit', $order->id) }}">
                 Order ID: {{ $order->order_id }}
-
-                    <span class="order-state-{{$order->state}}">({{ $order->stateInfo->name }})</span>
-                </a>
+                        <span class="order-state-{{$order->state}}">({{ $order->stateInfo->name }})</span>
+                    </a>
+                @else
+                <div style="color: #696cff; font-family: Calibri;">
+                Order ID: {{ $order->order_id }}
+                        <span class="order-state-{{$order->state}}">({{ $order->stateInfo->name }})</span>
+                </div>
+               @endif
             </span>
     </div>
     <div class="row justify-content-center">
@@ -32,12 +38,14 @@
         </div>
         <div class="col-sm-12 col-md-8 col-lg-9">
                 <div class="order-description mt-2">
-                    <span class="order-label mb-1">ID: <span class="order-info">{{ $order->id }}</span></span>
-                    <span class="order-label mb-1">Client: <span class="order-info">{{ $order->client->name }} {{ $order->client->middle_name }} {{ $order->client->last_name }}</span></span>
+                    @if(\Illuminate\Support\Facades\Auth::user()->hasRole('admin'))
+                        <span class="order-label mb-1">Client: <span class="order-info">{{ $order->client->name }} {{ $order->client->middle_name }} {{ $order->client->last_name }}</span></span>
+                    @endif
                     <span class="order-label mb-1">Date added: <span class="order-info">{{ \Carbon\Carbon::parse($order->created_at)->format('d.m.Y H:i:s') }}</span></span>
                     <span class="order-label mb-1">Make: <span
                             class="order-info">{{ $order->makeInfo->name }}</span></span>
                     <span class="order-label mb-1">Model: <span class="order-info">{{ $order->model }}</span></span>
+                    <span class="order-label mb-1">Years: <span class="order-info">{{ $order->years }}</span></span>
                     <span class="order-label mb-1">Max Miles: <span
                             class="order-info">{{ $order->max_miles }}</span></span>
                     <span class="order-label mb-1">Desired Max Bid: <span
@@ -47,9 +55,11 @@
             </div>
         </div>
     </div>
-    <div class="order__notes">
-        <span><b>Notes:</b> Minor damages only. I don’t want too much repairs. Prefer if it is near New York.</span>
-    </div>
+    @if(strlen($order->notes) > 0)
+        <div class="order__notes">
+            <span><b>Notes:</b> {{ $order->notes }}</span>
+        </div>
+    @endif
 </div>
 
 <style>

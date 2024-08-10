@@ -64,12 +64,12 @@
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a href="https://docs.google.com/document/d/1MEqsoN8eWrd6MHe3uQqs358v0SSxIklV/edit" class="menu-link">
+                        <a href="https://auctionwarriors.com/pricing/" class="menu-link">
                             <div data-i18n="Without menu">Rates</div>
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a href="https://docs.google.com/document/d/1MEqsoN8eWrd6MHe3uQqs358v0SSxIklV/edit" class="menu-link">
+                        <a href="https://auctionwarriors.com/paymentinstructions/" class="menu-link">
                             <div data-i18n="Without menu">Payment Instructions</div>
                         </a>
                     </li>

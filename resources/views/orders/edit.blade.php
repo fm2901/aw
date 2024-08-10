@@ -11,7 +11,7 @@
                             <a class="purchase-title" href="{{ route('orders.index') }}">
                                 <img src="/arrow-back.svg" alt="">
                             </a>
-                            Create new order</h2>
+                            Edit order</h2>
                         <div class="mb-3 text-center">
                             <code class="text-dark">
                                 Please limit adding 1 vehicle per order. If you would like to add more than 1 vehicle,
