@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fileble', function (Blueprint $table) {
-            $table->integer('file_id');
-            $table->integer('fileble_id');
-            $table->string('fileble_type');
+        Schema::create('files', function (Blueprint $table) {
+            $table->id();
+            $table->string("path");
+            $table->int("created_by");
+            $table->timestamps();
         });
     }
 
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fileble');
+        Schema::dropIfExists('files');
     }
 };

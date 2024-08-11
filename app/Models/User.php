@@ -143,7 +143,7 @@ class User extends Authenticatable
             'country' => $request->country,
             'zip' => $request->zip,
             'phone' => $request->phone,
-            'vehicle_to' => $request->vehicle_to,
+            'vehicle_to' => $request->vehicle_to ?? 0,
             'account_type' => $type,
             'client_id' => Helper::getRandomIdWithCheck((new User), 'client_id', 6)
         ]);
