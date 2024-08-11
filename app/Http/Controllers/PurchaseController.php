@@ -28,7 +28,7 @@ class PurchaseController extends Controller
 
 
         $totalRecords = Purchase::select('count(*) as allcount')->count();
-        $rowperpage = 1;
+        $rowperpage = 10;
         $curPage = intval($request->get("p")) > 0 ? $request->get("p") : 1;
         $start = ($curPage-1) * $rowperpage;
         $pagesCount = round($totalRecords / $rowperpage);

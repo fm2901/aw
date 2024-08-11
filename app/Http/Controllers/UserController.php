@@ -9,6 +9,7 @@ use App\Models\ExperiensePeriod;
 use App\Models\PriceRange;
 use App\Models\Purchasable;
 use App\Models\PurchasePurpose;
+use App\Models\RoleUser;
 use App\Models\ToExport;
 use App\Models\User;
 use App\Models\VehicleTo;
@@ -99,6 +100,16 @@ class UserController extends Controller
         ]);
 
         Purchasable::updateList($request, $id);
+
+        if($request->role == 1) {
+            RoleUser::firstOrCreate([
+                'user_id' => $id,
+                'role_id' => 1
+            ]);
+        } else {
+            RoleUser::where("user_id", $id)->where('role_id', 1)->delete();
+        }
+
 
         if(isset($request->password)) {
             User::where("id", $id)->update([

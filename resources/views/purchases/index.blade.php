@@ -10,7 +10,7 @@
                         <a class="btn dropdown-toggle font-black" style="color: black; font-size: 1.3em" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Purchases
                             <sup class="badge badge-notifications bg-info p-1" style="top: -16px">
-                                {{$purchases->count()}}
+                                {{ $allCount }}
                             </sup>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">

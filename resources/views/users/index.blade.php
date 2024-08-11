@@ -13,6 +13,8 @@
                     <tr>
                         <th>ID</th>
                         <th>ClientID</th>
+                        <th>Orders</th>
+                        <th>Purchases</th>
                         <th>Account type</th>
                         <th>Bussiness name</th>
                         <th>Name</th>
@@ -26,6 +28,8 @@
                     <tr>
                         <td> {{ $user->id }}</td>
                         <td> {{ $user->client_id }}</td>
+                        <td><a href="{{ route('orders.index') . '?user='.$user->id }}" class="btn btn-sm btn-primary">Orders</a></td>
+                        <td><a href="{{ route('purchases.index') . '?user='.$user->id }}" class="btn btn-sm btn-primary">Purchases</a></td>
                         <td> {{ $user->accountType->name }}</td>
                         <td> {{ $user->name }}</td>
                         <td> {{ $user->getName() }}</td>

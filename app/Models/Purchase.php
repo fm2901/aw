@@ -15,6 +15,11 @@ class Purchase extends Model
         return $this->belongsTo(Make::class,'make');
     }
 
+    public function clientInfo()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
+
     public function photos()
     {
         return $this->morphToMany(Files::class, 'fileble', 'fileble', 'fileble_id', 'file_id');

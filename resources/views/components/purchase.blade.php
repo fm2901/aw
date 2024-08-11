@@ -29,6 +29,7 @@
                     <span
                         class="order-label mb-1">{{ $purchase->year }} {{ $purchase->makeInfo->name }} {{ $purchase->model }} {{ $purchase->trim }}</span>
                 </a>
+                <span class="order-label mb-1">Client: <a href="{{ route('purchases.index') . '?user=' . $purchase->user_id }}" class="order-info">{{ $purchase->clientInfo->getName() }}</a></span>
                 <span class="order-label mb-1">VIN: <span class="order-info">{{ $purchase->vin }}</span></span>
                 <span class="order-label mb-1">Purchase ID: <span
                         class="order-info">{{ $purchase->purchase_id }}</span></span>

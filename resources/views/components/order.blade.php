@@ -39,7 +39,7 @@
         <div class="col-sm-12 col-md-8 col-lg-9">
                 <div class="order-description mt-2">
                     @if(\Illuminate\Support\Facades\Auth::user()->hasRole('admin'))
-                        <span class="order-label mb-1">Client: <span class="order-info">{{ $order->client->name }} {{ $order->client->middle_name }} {{ $order->client->last_name }}</span></span>
+                        <span class="order-label mb-1">Client: <a href="{{ route('orders.index') . '?user=' . $order->user_id }}" class="order-info">{{ $order->client->name }} {{ $order->client->middle_name }} {{ $order->client->last_name }}</a></span>
                     @endif
                     <span class="order-label mb-1">Date added: <span class="order-info">{{ \Carbon\Carbon::parse($order->created_at)->format('d.m.Y H:i:s') }}</span></span>
                     <span class="order-label mb-1">Make: <span

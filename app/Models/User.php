@@ -149,6 +149,10 @@ class User extends Authenticatable
         ]);
 
         Purchasable::updateList($request, $user->id);
+        RoleUser::firstOrCreate([
+            'user_id' => $user->id,
+            'role_id' => 2
+        ]);
 
         return $user;
     }

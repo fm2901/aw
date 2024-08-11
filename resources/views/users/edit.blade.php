@@ -21,6 +21,13 @@
                                 @csrf
                                 @method('PATCH')
                                 <div class="mb-3">
+                                    <label for="user_id" class="form-label">Role</label>
+                                    <select name="role" class="form-control" required>
+                                        {{!!\App\Helpers\Helper::getOptions(\App\Models\Role::all(), $user->hasRole('admin') ? 1 : 2)!!}}
+                                    </select>
+                                    <x-input-error :messages="$errors->get('role')" class="mt-2"/>
+                                </div>
+                                <div class="mb-3">
                                     <label for="manager" class="form-label">Manager</label>
                                     <select name="manager" class="form-control" required >
                                         @foreach($managers as $c)

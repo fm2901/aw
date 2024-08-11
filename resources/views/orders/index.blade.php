@@ -8,14 +8,14 @@
                         <a class="btn dropdown-toggle font-black" style="color: black; font-size: 1.3em" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Orders
                             <sup class="badge badge-notifications bg-info p-1" style="top: -16px">
-                                {{$orders->count()}}
+                                {{ $allCount }}
                             </sup>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <a class="dropdown-item" href="{{ route('purchases.index') }}">Purchases</a>
                         </div>
                     </div>
-                    {!!\App\Helpers\Helper::printOrdersMenu($state)!!}
+                    {!!\App\Helpers\Helper::printOrdersMenu(request()->query())!!}
                 </div>
                 <div class="row">
                     @foreach($orders as $order)

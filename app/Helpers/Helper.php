@@ -74,17 +74,25 @@ class Helper
         }
     }
 
-    public static function printOrdersMenu($current=0) {
+    public static function printOrdersMenu($query=array()) {
+        $current = $query["state"] ?? 0;
+        $query["state"] = 0;
+
+
         $currentState = OrderState::find($current);
         $selected = $current > 0 ? $currentState->name : "All";
+        $selected = $current == 0 && isset($query["sort"]) && $query["sort"] == 'desc' ? "Newest" : $selected;
+        unset($query["sort"]);
         $menu = '<div class="dropdown menu-dropdown col-md-6 col-sm-6 w-50" style="text-align:end">
                         <a class="btn dropdown-toggle font-black" style="color: black; font-size: 1.3em" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             '.$selected.'
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="' . route('orders.index') . '?state=0">All</a>';
+                            <a class="dropdown-item" href="' . route('orders.index') . '?'.http_build_query($query).'">All</a>
+                            <a class="dropdown-item" href="' . route('orders.index') . '?'.http_build_query($query).'&sort=desc">Newest</a>';
         foreach (OrderState::all() as $state) {
-            $menu .= '<a class="dropdown-item" href="' . route('orders.index') . '?state='.$state->id.'">'.$state->name.'</a>';
+            $query["state"] = $state->id;
+            $menu .= '<a class="dropdown-item" href="' . route('orders.index') . '?'.http_build_query($query).'">'.$state->name.'</a>';
         }
 
         $menu .=      '</div>

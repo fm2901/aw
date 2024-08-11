@@ -23,7 +23,7 @@ class OrderController extends Controller
 {
     public function index(Request $request): View
     {
-        $filter = [];
+       $filter = [];
         if(!$request->user()->hasRole('admin')) {
             $filter["user_id"] = $request->user()->id;
         }
@@ -32,27 +32,30 @@ class OrderController extends Controller
             $filter["state"] = $request->query('state');
         }
 
+        if($request->query('user') > 0) {
+            $filter["user_id"] = $request->query('user');
+        }
+
+        $sort = $request->query('sort') ?? "asc";
+
         $queryFilter = [];
         if($request->query('query')) {
             $queryFilter["state"] = $request->query('state');
         }
-
         $totalRecords = Order::select('count(*) as allcount')->where($filter)->count();
-        $rowperpage = 3;
+        $rowperpage = 10;
         $curPage = intval($request->get("p")) > 0 ? $request->get("p") : 1;
         $start = ($curPage-1) * $rowperpage;
         $pagesCount = round($totalRecords / $rowperpage,0,PHP_ROUND_HALF_UP);
 
-
-
         $orders = Order::where($filter)
+                            ->orderBy('id', $sort)
                             ->skip($start)
                             ->take($rowperpage)
                             ->get();
 
         $query = $request->query();
         unset($query["p"]);
-
         return view('orders.index', [
             'orders' => $orders,
             'allCount'    => $totalRecords,
