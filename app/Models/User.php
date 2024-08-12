@@ -186,4 +186,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Permission::class);
     }
 
+    public function files()
+    {
+        return $this->morphToMany(Files::class, 'fileble', 'fileble', 'fileble_id', 'file_id');
+    }
+
 }

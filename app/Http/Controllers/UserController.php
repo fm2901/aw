@@ -6,6 +6,9 @@ use App\Models\AccountType;
 use App\Models\CarState;
 use App\Models\Country;
 use App\Models\ExperiensePeriod;
+use App\Models\Fileble;
+use App\Models\Files;
+use App\Models\Order;
 use App\Models\PriceRange;
 use App\Models\Purchasable;
 use App\Models\PurchasePurpose;
@@ -17,6 +20,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -108,6 +113,41 @@ class UserController extends Controller
             ]);
         } else {
             RoleUser::where("user_id", $id)->where('role_id', 1)->delete();
+        }
+
+
+        $input_data = $request->all();
+        $validator = Validator::make(
+            $input_data, [
+            'files.*' => 'required|mimes:jpg,png,pdf,doc,rtf|max:20000'
+        ],[
+                'files.*.required' => 'Пожалуйста выберите фотографии',
+                'files.*.mimes' => 'Поддерживаются только форматы jpg, jpeg, png, pdf, doc, rtf',
+                'files.*.max' => 'Максимальный размер файла 20MB',
+            ]
+        );
+
+        if($request->file('files') && !$validator->fails()) {
+
+            foreach($request->file('files') as $file) {
+
+                $fileName = $file->getClientOriginalName();
+                $fileContent = file_get_contents($file->getRealPath());
+
+                $photo = "/docs/" . time() . "_" . $fileName;
+                Storage::put($photo, $fileContent);
+
+                $newPhoto = Files::updateOrCreate([
+                    'path' => $photo,
+                    'created_by' => $request->user()->id,
+                ]);
+
+                Fileble::updateOrCreate([
+                    'file_id' => $newPhoto->id,
+                    'fileble_id' => $id,
+                    'fileble_type' => User::class,
+                ]);
+            }
         }
 
 

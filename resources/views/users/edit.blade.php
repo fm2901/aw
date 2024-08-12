@@ -17,7 +17,7 @@
                                 @endforeach
                             </div>
                         @else
-                            <form id="formAuthentication" class="mb-3" method="POST" action="{{ route('users.update',['id' => $user->id]) }}">
+                            <form id="formAuthentication" class="mb-3" enctype="multipart/form-data" method="POST" action="{{ route('users.update',['id' => $user->id]) }}">
                                 @csrf
                                 @method('PATCH')
                                 <div class="mb-3">
@@ -43,6 +43,15 @@
                                     <x-person :errors="$errors" :countries="$countries" :user="$user"/>
                                 @endif
                                 <x-purchase-needs :errors="$errors" :purchasePurposes="$purchasePurposes" :carStates="$carStates" :toExport="$toExport" :priceRanges="$priceRanges" :experiensePeriods="$experiensePeriods" :user="$user"/>
+                                <div class="mb-3">
+                                    <h3>Documents</h3>
+                                    @foreach($user->files as $i => $file)
+                                        <a download class="d-block" href="{{ $file->path }}">{{ ++$i }}. {{ substr($file->path,6) }}</a>
+                                    @endforeach
+                                </div><div class="mb-3">
+                                    <label for="files" class="form-label">Documents</label>
+                                    <input type="file"  class="form-control" id="files" multiple name="files[]"/>
+                                </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
                                     <input type="text"  class="form-control" id="email" name="email" value="{{ $user->email }}" placeholder="Enter your email" autofocus/>

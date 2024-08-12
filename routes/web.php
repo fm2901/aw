@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/purchases/{purchase}', [PurchaseController::class, 'show'])->name('purchases.show');
     Route::get('/purchases/', [PurchaseController::class, 'index'])->name('purchases.index');
 
-    Route::get('/users/', [UserController::class, 'index'])->name('users.index')->middleware(['can:view users']);
+    Route::get('/users/', [UserController::class, 'index'])->name('users.index')->middleware(['can:edit users']);
     Route::get('/users/edit/{id?}', [UserController::class, 'edit'])->name('users.edit')->middleware(['can:edit users']);
     Route::patch('/users/{id}', [UserController::class, 'update'])->name('users.update')->middleware(['can:edit users']);
 });
