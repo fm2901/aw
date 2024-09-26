@@ -74,7 +74,7 @@ class OrderController extends Controller
             'damageLevels' => DamageLevel::all(),
             'users' => User::all(),
             'orderStates' => OrderState::all(),
-                'orderId' => Helper::getRandomIdWithCheck((new Order()), 'purchase_id', 9),
+            'orderId' => Helper::getRandomIdWithCheck((new Order()), 'purchase_id', 9),
         ]);
     }
 
@@ -222,7 +222,9 @@ class OrderController extends Controller
             }
         }
 
-
+        if($validator->fails()) {
+            return Redirect::back()->withErrors($validator);
+        }
 
         return Redirect::route('orders.index');
     }

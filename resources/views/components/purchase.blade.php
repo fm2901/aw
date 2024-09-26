@@ -33,7 +33,7 @@
                 <span class="order-label mb-1">VIN: <span class="order-info">{{ $purchase->vin }}</span></span>
                 <span class="order-label mb-1">Purchase ID: <span
                         class="order-info">{{ $purchase->purchase_id }}</span></span>
-                <span class="order-label mb-1">Award Date: <span class="order-info">{{ $purchase->award_date }}</span></span>
+                <span class="order-label mb-1">Award Date: <span class="order-info">{{ \Carbon\Carbon::parse($purchase->award_date)->format('m/d/Y') }}</span></span>
                 <span class="order-label mb-1">Outstanding Balance: <span
                         class="order-info balace-<?=$purchase->balance > 0 ? 1 : 0;?>">${{ number_format($purchase->balance, 2) }}</span></span>
             </div>

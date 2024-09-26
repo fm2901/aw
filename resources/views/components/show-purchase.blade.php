@@ -32,7 +32,7 @@
             <span class="purchase-label">Model: <span class="purchase-info">{{ $purchase->model }}</span></span>
             <span class="purchase-label">Trim: <span class="purchase-info">{{ $purchase->trim }}</span></span>
             <hr class="mb-3 mt-3">
-            <span class="purchase-label">Award Date: <span class="purchase-info">{{ $purchase->award_date }}</span></span>
+            <span class="purchase-label">Award Date: <span class="purchase-info">{{ \Carbon\Carbon::parse($purchase->award_date)->format('m/d/Y') }}</span></span>
             <span class="purchase-label">Auction: <span class="purchase-info">{{ $purchase->auction }}</span></span>
             <span class="purchase-label">Auction location: <span class="purchase-info">{{ $purchase->auction_location }}</span></span>
             <span class="purchase-label">Lot Number: <span class="purchase-info">{{ $purchase->lot }}</span></span>

@@ -11,7 +11,7 @@ class Helper
     public static function getRandomString(int $length, $pattern="123456789"): string
     {
         $result = "";
-        for($i = 0; $i <= $length; $i++)
+        for($i = 1; $i <= $length; $i++)
         {
             $result .= $pattern[mt_rand(0, strlen($pattern) - 1)];
         }
@@ -92,7 +92,7 @@ class Helper
                             <a class="dropdown-item" href="' . route('orders.index') . '?'.http_build_query($query).'&sort=desc">Newest</a>';
         foreach (OrderState::all() as $state) {
             $query["state"] = $state->id;
-            $menu .= '<a class="dropdown-item" href="' . route('orders.index') . '?'.http_build_query($query).'">'.$state->name.'</a>';
+            $menu .= '<a class="dropdown-item order-menu-item" href="' . route('orders.index') . '?'.http_build_query($query).'">'.$state->name.'</a>';
         }
 
         $menu .=      '</div>

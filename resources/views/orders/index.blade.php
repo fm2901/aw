@@ -22,11 +22,6 @@
                         <x-order :order="$order"/>
                     @endforeach
                 </div>
-                <div class="row mt-4 mb-1">
-                    <div class="col">
-                        <h4 class="text-bold text-gray-600 text-center">To edit or delete an order, please contact your account manager.</h4>
-                    </div>
-                </div>
                 @if($pagesCount > 1)
                     <x-pagination :pagesCount="$pagesCount" :curPage="$curPage"  :query="$query" :link="route('orders.index')" :showCount="5" />
                 @endif
@@ -35,6 +30,11 @@
                         You have no orders
                     </div>
                 @endif
+                <div class="row mt-4 mb-1">
+                    <div class="col">
+                        <h6 class="text-bold text-gray-600 text-center">To edit or delete an order, please contact your account manager.</h6>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -48,5 +48,10 @@
     .badge {
         font-size: 0.5em;
         top: -1em
+    }
+    @media screen and (max-width: 400px) {
+        .order-menu-item {
+            font-size: 0.7em;
+        }
     }
 </style>
