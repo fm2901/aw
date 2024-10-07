@@ -4,17 +4,19 @@
             <div class="col-md-12 card">
                 <a class="add-btn" href="{{ route('orders.create') }}">+</a>
                 <div class="row">
-                    <div class="dropdown menu-dropdown col-md-6 col-sm-6 w-50">
-                        <a class="btn dropdown-toggle font-black" style="color: black; font-size: 1.3em" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Orders
-                            <sup class="badge badge-notifications bg-info p-1" style="top: -16px">
-                                {{ $allCount }}
-                            </sup>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="{{ route('purchases.index') }}">Purchases</a>
-                        </div>
-                    </div>
+{{--                    <div class="dropdown menu-dropdown col-md-6 col-sm-6 w-50">--}}
+{{--                        <a class="btn dropdown-toggle font-black" style="color: black; font-size: 1.3em" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+{{--                            Orders--}}
+{{--                            <sup class="badge badge-notifications bg-info p-1" style="top: -16px">--}}
+{{--                                {{ $allCount }}--}}
+{{--                            </sup>--}}
+{{--                        </a>--}}
+
+{{--                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">--}}
+{{--                            <a class="dropdown-item" href="{{ route('purchases.index') }}">Purchases</a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+                    {!!\App\Helpers\Helper::printOrdersSortMenu(request()->query())!!}
                     {!!\App\Helpers\Helper::printOrdersMenu(request()->query())!!}
                 </div>
                 <div class="row">

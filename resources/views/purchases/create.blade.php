@@ -112,7 +112,12 @@
                                 <div class="col-lg-6 col-sm-12">
                                     <div class="mb-3">
                                         <label for="balance" class="form-label">Balance</label>
-                                        <input type="number" class="form-control" name="balance" :value="{{ old('balance') }}">
+                                        <div class="input-group">
+                                            <div class="input-group-append">
+                                                <button disabled class="btn btn-outline-secondary form-control" type="button">USD</button>
+                                            </div>
+                                            <input type="number" class="form-control" name="balance" :value="{{ old('balance') }}">
+                                        </div>
                                         <x-input-error :messages="$errors->get('balance')" class="mt-2"/>
                                     </div>
                                 </div>

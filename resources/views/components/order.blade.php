@@ -41,6 +41,8 @@
                     @if(\Illuminate\Support\Facades\Auth::user()->hasRole('admin'))
                         <span class="order-label mb-1">Client: <a href="{{ route('orders.index') . '?user=' . $order->user_id }}" class="order-info">{{ $order->client->name }} {{ $order->client->middle_name }} {{ $order->client->last_name }}</a></span>
                     @endif
+                    <span class="order-label mb-1">Client ID: <span
+                                class="order-info">{{ $order->user_id }}</span></span>
                     <span class="order-label mb-1">Date added: <span class="order-info">{{ \Carbon\Carbon::parse($order->created_at)->format('m/d/Y h:i A') }}</span></span>
                     <span class="order-label mb-1">Make: <span
                             class="order-info">{{ $order->makeInfo->name }}</span></span>

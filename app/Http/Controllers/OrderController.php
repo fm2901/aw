@@ -92,6 +92,14 @@ class OrderController extends Controller
 
     public function update(Order $order, Request $request): RedirectResponse
     {
+        $request->validate([
+            'model' => 'required|string|max:255',
+            'years' => 'string',
+            'colors' => 'string',
+            'max_miles' => 'int',
+            'max_bid' => 'int',
+        ]);
+
         $order->update([
             'user_id' => $request->user_id,
             'order_id' => $request->order_id,
@@ -140,6 +148,10 @@ class OrderController extends Controller
             }
         }
 
+        if($validator->fails()) {
+            return Redirect::back()->withErrors($validator);
+        }
+
         if(isset($request->createPurchase)) {
             return redirect( route('purchases.create') . "?order_id=" . $order->id );
         }
@@ -171,6 +183,14 @@ class OrderController extends Controller
             $filePath = "/cars/".time()."_".$fileName;
             Storage::put($filePath, $fileContent);
         }*/
+
+        $request->validate([
+            'model' => 'required|string|max:255',
+            'years' => 'string',
+            'colors' => 'string',
+            'max_miles' => 'int',
+            'max_bid' => 'int',
+        ]);
 
         $userId = $request->user()->hasRole('admin') ? $request->user_id : $request->user()->id;
         $state = $request->user()->hasRole('admin') ? $request->state : 1;

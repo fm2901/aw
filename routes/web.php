@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PurchaseController;
@@ -33,6 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/users/', [UserController::class, 'index'])->name('users.index')->middleware(['can:edit users']);
     Route::get('/users/edit/{id?}', [UserController::class, 'edit'])->name('users.edit')->middleware(['can:edit users']);
     Route::patch('/users/{id}', [UserController::class, 'update'])->name('users.update')->middleware(['can:edit users']);
+
+    Route::delete('/photos/{id}', [FileController::class, 'destroy'])->name('photo.delete')->middleware(['can:edit orders']);
 });
 
 

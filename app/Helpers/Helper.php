@@ -81,20 +81,32 @@ class Helper
 
         $currentState = OrderState::find($current);
         $selected = $current > 0 ? $currentState->name : "All";
-        $selected = $current == 0 && isset($query["sort"]) && $query["sort"] == 'desc' ? "Newest" : $selected;
         unset($query["sort"]);
         $menu = '<div class="dropdown menu-dropdown col-md-6 col-sm-6 w-50" style="text-align:end">
                         <a class="btn dropdown-toggle font-black" style="color: black; font-size: 1.3em" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             '.$selected.'
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="' . route('orders.index') . '?'.http_build_query($query).'">All</a>
-                            <a class="dropdown-item" href="' . route('orders.index') . '?'.http_build_query($query).'&sort=desc">Newest</a>';
+                            <a class="dropdown-item" href="' . route('orders.index') . '?'.http_build_query($query).'">All</a>';
         foreach (OrderState::all() as $state) {
             $query["state"] = $state->id;
             $menu .= '<a class="dropdown-item order-menu-item" href="' . route('orders.index') . '?'.http_build_query($query).'">'.$state->name.'</a>';
         }
 
+        $menu .=      '</div>
+                    </div>';
+
+        return $menu;
+    }
+    public static function printOrdersSortMenu($query=array()) {
+        $selected =  isset($query["sort"]) && $query["sort"] == 'desc' ? "Newest" : "Oldest";
+        $menu = '<div class="dropdown menu-dropdown col-md-6 col-sm-6 w-50">
+                        <a class="btn dropdown-toggle font-black" style="color: black; font-size: 1.3em" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            '.$selected.'
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="' . route('orders.index') . '?'.http_build_query($query).'&sort=desc">Newest</a>
+                            <a class="dropdown-item" href="' . route('orders.index') . '?'.http_build_query($query).'&sort=asc">Oldest</a>';
         $menu .=      '</div>
                     </div>';
 

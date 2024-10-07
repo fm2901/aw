@@ -65,7 +65,7 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label for="years" class="form-label">Desired Year Range</label>
-                                        <input type="number" class="form-control" name="years"
+                                        <input type="text" class="form-control" name="years"
                                                :value="{{ old('years') }}">
                                         <x-input-error :messages="$errors->get('years')" class="mt-2"/>
                                     </div>
@@ -87,8 +87,13 @@
                             </div>
                             <div class="mb-3">
                                 <label for="max_bid" class="form-label">Desired Max Bid</label>
-                                <input type="number" class="form-control" name="max_bid" :value="{{ old('max_bid') }}">
-                                <x-input-error :messages="$errors->get('max_bid')" class="mt-2"/>
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <button disabled class="btn btn-outline-secondary form-control" type="button">USD</button>
+                                    </div>
+                                    <input type="number" class="form-control" name="max_bid" :value="{{ old('max_bid') }}">
+                                    <x-input-error :messages="$errors->get('max_bid')" class="mt-2"/>
+                                </div>
                             </div>
 
                             <div class="row">

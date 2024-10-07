@@ -100,6 +100,16 @@ class PurchaseController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        $request->validate([
+            'award_date' => 'required|string',
+            'vin' => 'required|string',
+            'model' => 'required|string',
+            'year' => 'required|string',
+            'trim' => 'required|string',
+            'auction' => 'required|string',
+            'auction_location' => 'required|string',
+            'lot' => 'required|string',
+        ]);
 
         $input_data = $request->all();
         $validator = Validator::make(
@@ -115,19 +125,20 @@ class PurchaseController extends Controller
 
         if(!$validator->fails()) {
             $file = $request->file('invoice');
+            if($file) {
+                $fileName = $file->getClientOriginalName();
+                $fileContent = file_get_contents($file->getRealPath());
 
-            $fileName = $file->getClientOriginalName();
-            $fileContent = file_get_contents($file->getRealPath());
-
-            $invoice = "/invoices/".time()."_".$fileName;
-            Storage::put($invoice, $fileContent);
+                $invoice = "/invoices/" . time() . "_" . $fileName;
+                Storage::put($invoice, $fileContent);
+            }
         }
 
         $purchase = Purchase::create([
             'user_id' => $request->user_id,
             'order_id' => $request->order_id,
             'purchase_id' => $request->purchase_id,
-            'title' => $request->title,
+            'title' => '',
             'vin' => $request->vin,
             'make' => $request->make,
             'model' => $request->model,
@@ -175,10 +186,25 @@ class PurchaseController extends Controller
             }
         }
 
+        if($validator->fails()) {
+            return Redirect::back()->withErrors($validator);
+        }
+
         return Redirect::route('purchases.index');
     }
     public function update(Purchase $purchase, Request $request): RedirectResponse
     {
+        $request->validate([
+            'award_date' => 'required|string',
+            'vin' => 'required|string',
+            'model' => 'required|string',
+            'year' => 'required|string',
+            'trim' => 'required|string',
+            'auction' => 'required|string',
+            'auction_location' => 'required|string',
+            'lot' => 'required|string',
+        ]);
+
         $input_data = $request->all();
         $validator = Validator::make(
             $input_data, [
@@ -254,6 +280,10 @@ class PurchaseController extends Controller
 
         if(strlen($invoice) > 0) {
             $data['invoice'] = $invoice;
+        }
+
+        if($validator->fails()) {
+            return Redirect::back()->withErrors($validator);
         }
 
         $purchase->update($data);
