@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Imagine\Gd\Imagine;
+
 
 class OrderController extends Controller
 {
@@ -132,8 +134,16 @@ class OrderController extends Controller
                 $fileName = $file->getClientOriginalName();
                 $fileContent = file_get_contents($file->getRealPath());
 
-                $photo = "/cars/" . time() . "_" . $fileName;
-                Storage::put($photo, $fileContent);
+//                $img = Image::make($file->getRealPath());
+//                $img->encode(null, 85);
+
+                $imagine = new Imagine();
+                $img = $imagine->open($file->getRealPath());
+
+
+                $photo = "/cars/" . $fileName;
+                //Storage::put($photo, $fileContent);
+                $img->save(public_path($photo), ['quality' => 30]);
 
                 $newPhoto = Files::updateOrCreate([
                     'path' => $photo,
