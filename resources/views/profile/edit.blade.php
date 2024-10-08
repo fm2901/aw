@@ -3,7 +3,7 @@
         <h4 class="py-3 mb-4">
             <span class="text-muted fw-light">Account Settings /</span> Account
         </h4>
-        <form action="{{ route('profile.edit_admin') }}"></form>
+        <form action="{{ route('profile.update') }}"></form>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card mb-4 p-3">
