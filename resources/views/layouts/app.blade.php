@@ -188,16 +188,7 @@
                                 <script>
                                     document.write(new Date().getFullYear());
                                 </script>
-                                <a href="https://aw.com" target="_blank" class="footer-link fw-bolder">AuctionWarriors</a>
-                            </div>
-                            <div>
-                                <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                                <a
-                                    href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                                    target="_blank"
-                                    class="footer-link me-4"
-                                >Support</a
-                                >
+                                <a href="https://auctionwarriors.com" target="_blank" class="footer-link fw-bolder">AuctionWarriors</a>
                             </div>
                         </div>
                     </footer>

@@ -20,6 +20,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Psy\CodeCleaner\UseStatementPass;
@@ -39,7 +40,7 @@ class RegisteredUserController extends Controller
         $toExport = ToExport::all();
         $priceRanges = PriceRange::all();
         $experiensePeriods = ExperiensePeriod::all();
-        $user = User::find(1);
+        $user = new User();
         return view('auth.register', compact(['type', 'countries', 'accountTypes', 'vehicleTo', 'purchasePurposes', 'carStates', 'toExport', 'priceRanges', 'experiensePeriods', 'user']));
     }
 
@@ -50,22 +51,29 @@ class RegisteredUserController extends Controller
      */
     public function store(int $type=0, Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['string', 'max:255'],
-            'first_name' => ['required', 'string', 'max:255'],
-            'middle_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'street_address' => ['required', 'string', 'max:255'],
-            'apt' => ['required', 'string', 'max:255'],
-            'city' => ['required', 'string', 'max:255'],
-            'state' => ['string', 'max:255'],
-            'country' => ['required', 'int'],
-            'vehicle_to' => ['int'],
-            'account_type' => ['int'],
-            'phone' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        try {
+
+
+            $request->validate([
+                'name' => ['string', 'max:255'],
+                'first_name' => ['required', 'string', 'max:255'],
+                'middle_name' => ['required', 'string', 'max:255'],
+                'last_name' => ['required', 'string', 'max:255'],
+                'street_address' => ['required', 'string', 'max:255'],
+                'apt' => ['required', 'string', 'max:255'],
+                'city' => ['required', 'string', 'max:255'],
+                'state' => ['string', 'max:255'],
+                'country' => ['required', 'int'],
+                'price_ranges' => ['required'],
+                'account_type' => ['int'],
+                'phone' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            ]);
+        }catch (ValidationException $e) {
+            $errors = $e->validator->errors();
+            return redirect()->back()->withErrors($errors)->withInput();
+        }
 
         $user = User::createUser($type, $request);
 

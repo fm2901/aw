@@ -46,7 +46,10 @@
                                 <div class="mb-3">
                                     <h3>Documents</h3>
                                     @foreach($user->files as $i => $file)
-                                        <a download class="d-block" href="{{ $file->path }}">{{ ++$i }}. {{ substr($file->path,6) }}</a>
+                                        <div id="doc-{{$file->id}}" class="d-flex">
+                                            <button class="btn btn-sm btn-danger mr-3" onclick="deleteDoc({{ $file->id }})">Delete</button>
+                                            <a download class="d-block ml-3" href="{{ $file->path }}">{{ ++$i }}. {{ substr($file->path,6) }}</a>
+                                        </div>
                                     @endforeach
                                 </div><div class="mb-3">
                                     <label for="files" class="form-label">Documents</label>
@@ -57,7 +60,7 @@
                                     <input type="text"  class="form-control" id="email" name="email" value="{{ $user->email }}" placeholder="Enter your email" autofocus/>
                                 </div>
                                 <div class="mb-3 form-password-toggle">
-                                    <label class="form-label" for="password">Password</label>
+                                    <label class="form-label" for="password">New password</label>
                                     <div class="input-group input-group-merge">
                                         <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password"/>
                                         <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
@@ -82,3 +85,22 @@
         </div>
     </div>
 </x-app-layout>
+<script>
+    function deleteDoc(docId) {
+        if (confirm('Do you want delete this doc?')) {
+            $.ajax({
+                url: '/photos/' + docId,
+                type: 'DELETE',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(result) {
+                    $('#doc-' + docId).remove(); // Удаляем слайд из DOM
+                },
+                error: function(xhr) {
+                    alert('Doc deleting error');
+                }
+            });
+        }
+    }
+</script>

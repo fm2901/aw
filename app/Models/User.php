@@ -114,7 +114,7 @@ class User extends Authenticatable
 
     public function managerInfo()
     {
-        return $this->belongsTo(User::class,'id');
+        return $this->belongsTo(User::class,'manager');
     }
 
     public function countryInfo()

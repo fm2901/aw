@@ -86,6 +86,15 @@ class UserController extends Controller
 //            return response()->json(["message" => $validator->errors()->all()], 400);
 //        }
 
+//        $request->validate([
+//            'model' => 'required|string|max:255',
+//            'years' => 'string',
+//            'colors' => 'string',
+//            'max_miles' => 'int',
+//            'max_bid' => 'int',
+//        ]);
+//
+
         $user = User::where("id", $id)->update([
             "manager" => $request->manager,
             "name" => $request->name ?? '',
@@ -153,7 +162,7 @@ class UserController extends Controller
 
         if(isset($request->password)) {
             User::where("id", $id)->update([
-                Hash::make($request->password)
+                'password' => Hash::make($request->password)
             ]);
         }
 

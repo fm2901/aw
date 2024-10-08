@@ -220,9 +220,8 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(result) {
-                    $('#slide-' + photoId).hide(); // Удаляем слайд из DOM
-                    alert('Photo deleted');
-                    // Обновляем Swiper после удаления
+                    $('#slide-' + photoId).remove(); // Удаляем слайд из DOM
+                    window.location.reload();
                     swiper.update();
                 },
                 error: function(xhr) {
