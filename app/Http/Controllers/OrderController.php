@@ -34,7 +34,7 @@ class OrderController extends Controller
             $filter["state"] = $request->query('state');
         }
 
-        if($request->query('user') > 0) {
+        if($request->query('user') > 0 && auth()->user()->hasRole('admin')) {
             $filter["user_id"] = $request->query('user');
         }
 

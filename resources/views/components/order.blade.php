@@ -22,6 +22,9 @@
         <div class="col-sm-12 col-md-4 col-lg-3">
             <div style="height: 100%;">
                 <div class="order-image">
+                    @if(count($order->photos) < 1)
+                        <img src="/assets/img/car.png">
+                    @endif
                     <div class="swiper mySwiper">
                         <div class="swiper-wrapper">
                             @foreach($order->photos as $photo)
@@ -42,12 +45,13 @@
                         <span class="order-label mb-1">Client: <a href="{{ route('orders.index') . '?user=' . $order->user_id }}" class="order-info">{{ $order->client->name }} {{ $order->client->middle_name }} {{ $order->client->last_name }}</a></span>
                     @endif
                     <span class="order-label mb-1">Client ID: <span
-                                class="order-info">{{ $order->user_id }}</span></span>
+                                class="order-info">{{ $order->client->client_id }}</span></span>
                     <span class="order-label mb-1">Date added: <span class="order-info">{{ \Carbon\Carbon::parse($order->created_at)->format('m/d/Y h:i A') }}</span></span>
                     <span class="order-label mb-1">Make: <span
                             class="order-info">{{ $order->makeInfo->name }}</span></span>
                     <span class="order-label mb-1">Model: <span class="order-info">{{ $order->model }}</span></span>
                     <span class="order-label mb-1">Years: <span class="order-info">{{ $order->years }}</span></span>
+                    <span class="order-label mb-1">Colors: <span class="order-info">{{ $order->colors }}</span></span>
                     <span class="order-label mb-1">Max Miles: <span
                             class="order-info">{{ $order->max_miles }}</span></span>
                     <span class="order-label mb-1">Desired Max Bid: <span

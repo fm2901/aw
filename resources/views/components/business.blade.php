@@ -16,7 +16,7 @@
 </div>
 <div class="mb-3">
     <label for="apt" class="form-label">Suite, Office, Unit#</label>
-    <input type="text" class="form-control" required  id="apt" name="apt" value="{{ $user->apt }}" placeholder="Enter your suite, office, unit#"/>
+    <input type="text" class="form-control" id="apt" name="apt" value="{{ $user->apt }}" placeholder="Enter your suite, office, unit#"/>
     <x-input-error :messages="$errors->get('apt')" class="mt-2" />
 </div>
 <div class="mb-3">
@@ -26,7 +26,7 @@
 </div>
 <div class="mb-3">
     <label for="state" class="form-label">State</label>
-    <input type="text" class="form-control" required  id="state" name="state" value="{{ $user->state }}" placeholder="Enter state name"/>
+    <input type="text" class="form-control"  id="state" name="state" value="{{ $user->state }}" placeholder="Enter state name"/>
     <x-input-error :messages="$errors->get('state')" class="mt-2" />
 </div>
 <div class="mb-3">
@@ -55,7 +55,7 @@
 </div>
 <div class="mb-3">
     <label for="middle_name" class="form-label">Representative's middle name</label>
-    <input type="text" class="form-control" required  id="middle_name" name="middle_name" value="{{ $user->middle_name }}" placeholder="Enter your middle name"/>
+    <input type="text" class="form-control"  id="middle_name" name="middle_name" value="{{ $user->middle_name }}" placeholder="Enter your middle name"/>
     <x-input-error :messages="$errors->get('middle_name')" class="mt-2" />
 </div>
 <div class="mb-3">

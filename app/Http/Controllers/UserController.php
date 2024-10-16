@@ -95,7 +95,7 @@ class UserController extends Controller
 //        ]);
 //
 
-        $user = User::where("id", $id)->update([
+        $data = [
             "manager" => $request->manager,
             "name" => $request->name ?? '',
             "first_name" => $request->first_name,
@@ -111,7 +111,15 @@ class UserController extends Controller
             "phone" => $request->phone,
             "email" => $request->email,
             "experiense_period" => $request->experiense_period,
-        ]);
+        ];
+
+        if(auth()->user()->can('edit users')) {
+            $data['deposit_min'] = $request->deposit_min ?? 0;
+            $data['deposit'] = $request->deposit ?? 0;
+            $data['buy_power'] = $request->buy_power ?? 0;
+        }
+
+        $user = User::where("id", $id)->update($data);
 
         Purchasable::updateList($request, $id);
 

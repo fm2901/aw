@@ -31,7 +31,7 @@
                         <div class="card-body col-md-5">
                             <h4 class="text-bold">Address</h4>
                             <p>Street address: {{ $user->street_address }}</p>
-                            <p>Suite, Office, Unit #: {{ $user->unit }} </p>
+                            <p>Suite, Office, Unit #: {{ $user->apt }} </p>
                             <p>City: {{ $user->city }} </p>
                             <p>State: {{ $user->state }} </p>
                             <p>Zip Code: {{ $user->zip }} </p>
@@ -46,7 +46,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-5 col-sm-12">
+            <!--<div class="col-lg-4 col-md-5 col-sm-12">
                 <div class="card">
                     <h5 class="card-header">Change password</h5>
                     <div class="card-body">
@@ -65,7 +65,7 @@
                         </form>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
 </x-app-layout>

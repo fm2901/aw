@@ -37,6 +37,6 @@ input[type=checkbox], input[type=radio] {
     line-height: 0.5em;
     color: green;
 }
-
-
-
+.balance-1 {
+    color: red;
+}

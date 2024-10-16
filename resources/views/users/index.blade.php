@@ -34,7 +34,7 @@
                         <td> {{ $user->getName() }}</td>
                         <td> {{ $user->email }}</td>
                         <td> {{ $user->countryInfo->name }}</td>
-                        <td> {{ $user->managerInfo->getName() }}</td>
+                        <td> {{ $user?->managerInfo?->getName() }}</td>
                         <td><a href="{{ route('users.edit', $user->id) }}">Edit</a></td>
                     </tr>
                 @endforeach

@@ -20,7 +20,7 @@
                                         <a href="image4_large.jpg" data-lightbox="gallery">
                                             <img src="{{ $photo->path }}" alt="Image 4">
                                         </a>
-                                        <button type="button" class="delete-button btn btn-sm btn-danger" onclick="confirmDelete({{ $photo->id }})">Удалить</button>
+                                        <button type="button" class="delete-button btn btn-sm btn-danger" onclick="confirmDelete({{ $photo->id }})">Delete</button>
                                     </div>
                                 @endforeach
                             </div>

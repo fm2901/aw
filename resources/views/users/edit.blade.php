@@ -43,6 +43,25 @@
                                     <x-person :errors="$errors" :countries="$countries" :user="$user"/>
                                 @endif
                                 <x-purchase-needs :errors="$errors" :purchasePurposes="$purchasePurposes" :carStates="$carStates" :toExport="$toExport" :priceRanges="$priceRanges" :experiensePeriods="$experiensePeriods" :user="$user"/>
+
+                                @if(\Illuminate\Support\Facades\Auth::user()->hasRole('admin'))
+                                    <div class="mb-3">
+                                        <label for="last_name" class="form-label">Deposit required</label>
+                                        <input type="text" class="form-control" required  id="last_name" name="deposit_min" value="{{ $user?->deposit_min }}" placeholder="Enter deposit required"/>
+                                        <x-input-error :messages="$errors->get('deposit_min')" class="mt-2" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="last_name" class="form-label">Deposit on fire</label>
+                                        <input type="text" class="form-control" required  id="deposit" name="deposit" value="{{ $user?->deposit }}" placeholder="Enter deposit on fire"/>
+                                        <x-input-error :messages="$errors->get('deposit')" class="mt-2" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="last_name" class="form-label">Buy power</label>
+                                        <input type="text" class="form-control" required  id="buy_power" name="buy_power" value="{{ $user?->buy_power }}" placeholder="Enter buy power"/>
+                                        <x-input-error :messages="$errors->get('buy_power')" class="mt-2" />
+                                    </div>
+                                @endif
+
                                 <div class="mb-3">
                                     <h3>Documents</h3>
                                     @foreach($user->files as $i => $file)

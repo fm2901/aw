@@ -24,7 +24,11 @@
                                     <div class="mb-3">
                                         <label for="order_id" class="form-label">Order ID</label>
                                         <input type="text" class="form-control" name="order_id" value="{{ $orderId }}"
-                                               :value="{{ old('order_id') }}">
+                                               :value="{{ old('order_id') }}"
+                                                @if(!auth()->user()->hasRole('admin'))
+                                                    readonly
+                                                @endif
+                                        >
                                         <x-input-error :messages="$errors->get('order_id')" class="mt-2"/>
                                     </div>
                                 </div>

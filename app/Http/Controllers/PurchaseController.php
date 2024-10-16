@@ -27,7 +27,7 @@ class PurchaseController extends Controller
         }
 
 
-        $totalRecords = Purchase::select('count(*) as allcount')->count();
+        $totalRecords = Purchase::select('count(*) as allcount')->where($filter)->count();
         $rowperpage = 10;
         $curPage = intval($request->get("p")) > 0 ? $request->get("p") : 1;
         $start = ($curPage-1) * $rowperpage;
@@ -59,10 +59,14 @@ class PurchaseController extends Controller
         ]);
     }
 
-    public function show(Purchase $purchase): View
+    public function show(Purchase $purchase)
     {
         $invoice = explode("/", $purchase->invoice);
         $invoice = $invoice[count($invoice) - 1];
+
+        if(!auth()->user()->hasRole('admin') && !auth()->user()->id != $purchase->clientInfo->id) {
+            return redirect(route('purchases.index'));
+        }
 
         return view('purchases.show', [
             'purchase' => $purchase,
@@ -138,7 +142,6 @@ class PurchaseController extends Controller
             'user_id' => $request->user_id,
             'order_id' => $request->order_id,
             'purchase_id' => $request->purchase_id,
-            'title' => '',
             'vin' => $request->vin,
             'make' => $request->make,
             'model' => $request->model,
@@ -264,7 +267,6 @@ class PurchaseController extends Controller
             'user_id' => $request->user_id,
             'order_id' => $request->order_id,
             'purchase_id' => $request->purchase_id,
-            'title' => $request->title,
             'vin' => $request->vin,
             'make' => $request->make,
             'model' => $request->model,

@@ -13,7 +13,7 @@
                             </a>
                         </div>
                             @if(is_null($type) || is_null(\App\Models\AccountType::find($type)))
-                                <p class="text-black text-center mb-3">Are you signing up as a business or individual?</p>
+                                <h3 class="text-black text-center mb-3">Are you signing up as a business or individual?</h3>
                                 <div class="mb-3">
                                     @foreach($accountTypes as $at)
                                         <a href="{{ route('register') }}/{{ $at->id }}" style="font-size: 1.7em;" class="btn btn-primary d-block p-1 mb-3"> {{ $at->name }}</a>
@@ -60,7 +60,7 @@
                                         <input class="form-check-input" type="checkbox" id="terms-conditions" required name="terms" />
                                         <label class="form-check-label" for="terms-conditions">
                                             I agree to
-                                            <a href="{{ env('AGREEMENT_LINK') }}">privacy policy & terms</a>
+                                            <a href="{{ env('AGREEMENT_LINK') }}">Agreement</a>
                                         </label>
                                     </div>
                                 </div>
