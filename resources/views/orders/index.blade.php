@@ -51,9 +51,16 @@
         font-size: 0.5em;
         top: -1em
     }
+    .order-filter {
+        color: black;
+        font-size: 1.3em
+    }
     @media screen and (max-width: 400px) {
         .order-menu-item {
             font-size: 0.7em;
+        }
+        .order-filter {
+            font-size: 1em
         }
     }
 </style>

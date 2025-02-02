@@ -9,7 +9,25 @@
            <img src="/arrow-back.svg" alt="">
            Purchase {{ $purchase->purchase_id }}</a>
            <div class="row mb-4 portfolio-container wow fadeInUp" data-wow-delay="0.5s" style="position: relative; visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
-               @foreach($purchase->photos as $photo)
+               @if($purchase->photos)
+                   <div class="swiper">
+                       <div class="swiper-wrapper">
+                           @foreach($purchase->photos as $photo)
+                               <div class="swiper-slide" id="slide-{{$photo->id}}">
+                                   <a href="image4_large.jpg" data-lightbox="gallery">
+                                       <img src="{{ $photo->path }}" style="width: 100%" alt="Image 4">
+                                   </a>
+                                   <button type="button" class="delete-button btn btn-sm btn-danger" onclick="confirmDelete({{ $photo->id }})">Delete</button>
+                               </div>
+                           @endforeach
+                       </div>
+                       <!-- Навигация -->
+                       <div class="swiper-button-next"></div>
+                       <div class="swiper-button-prev"></div>
+                       <!-- Ползунок -->
+                       <div class="swiper-pagination"></div>
+                   </div>
+               @else
                    <div class="col-md-3 col-sm-6 portfolio-item first" style="position: absolute; left: 0px; top: 0px;">
                        <div class="portfolio-img rounded overflow-hidden">
                            <img class="img-fluid purchase-image" src="/cars/car.png" alt="">
@@ -19,7 +37,7 @@
                            </div>
                        </div>
                    </div>
-               @endforeach
+               @endif
            </div>
    </div>
 

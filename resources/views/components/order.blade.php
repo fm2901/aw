@@ -42,11 +42,19 @@
         <div class="col-sm-12 col-md-8 col-lg-9">
                 <div class="order-description mt-2">
                     @if(\Illuminate\Support\Facades\Auth::user()->hasRole('admin'))
-                        <span class="order-label mb-1">Client: <a href="{{ route('orders.index') . '?user=' . $order->user_id }}" class="order-info">{{ $order->client->name }} {{ $order->client->middle_name }} {{ $order->client->last_name }}</a></span>
+                        <span class="order-label mb-1">Client:
+                            <a href="{{ route('orders.index') . '?user=' . $order->user_id }}" class="order-info">
+                                @if($order->client->account_type == 2)
+                                    {{ $order->client->first_name }} {{ $order->client->last_name }}
+                                @else
+                                    {{ $order->client->name }}
+                                @endif
+                            </a>
+                        </span>
                     @endif
                     <span class="order-label mb-1">Client ID: <span
                                 class="order-info">{{ $order->client->client_id }}</span></span>
-                    <span class="order-label mb-1">Date added: <span class="order-info">{{ \Carbon\Carbon::parse($order->created_at)->format('m/d/Y h:i A') }}</span></span>
+                    <span class="order-label mb-1">Date added: <span class="order-info">{{ \Carbon\Carbon::parse($order->created_at)->format('m/d/Y') }}</span></span>
                     <span class="order-label mb-1">Make: <span
                             class="order-info">{{ $order->makeInfo->name }}</span></span>
                     <span class="order-label mb-1">Model: <span class="order-info">{{ $order->model }}</span></span>

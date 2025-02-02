@@ -29,8 +29,8 @@
                         <td> {{ $user->client_id }}</td>
                         <td><a href="{{ route('orders.index') . '?user='.$user->id }}" class="btn btn-sm btn-primary">Orders</a></td>
                         <td><a href="{{ route('purchases.index') . '?user='.$user->id }}" class="btn btn-sm btn-primary">Purchases</a></td>
-                        <td> {{ $user->accountType->name }}</td>
-                        <td> {{ $user->name }}</td>
+                        <td> {{ $user?->accountType?->name }}</td>
+                        <td> {{ $user?->name }}</td>
                         <td> {{ $user->getName() }}</td>
                         <td> {{ $user->email }}</td>
                         <td> {{ $user->countryInfo->name }}</td>
@@ -41,7 +41,7 @@
                 </table>
                 </div>
                 <div class="mt-3">
-                    <x-pagination :pagesCount="$pagesCount" :curPage="$curPage"  :link="route('users.index')" :showCount="5" />
+                    <x-pagination :pagesCount="$pagesCount" :curPage="$curPage"  :link="route('users.index')" :showCount="10" />
                 </div>
             </div>
         </div>

@@ -31,7 +31,7 @@ class PurchaseController extends Controller
         $rowperpage = 10;
         $curPage = intval($request->get("p")) > 0 ? $request->get("p") : 1;
         $start = ($curPage-1) * $rowperpage;
-        $pagesCount = round($totalRecords / $rowperpage);
+        $pagesCount = ceil($totalRecords / $rowperpage);
 
         $sortBy = $request->query("sortBy", "id");
         $sortDir = $request->query("desc", "asc");
@@ -47,7 +47,7 @@ class PurchaseController extends Controller
 
         $currentSort = $request->query('sortBy') ?? 'award_date';
         $currentSort .= '&sort=';
-        $currentSort .= $request->query('sort') ?? 'asc';
+        $currentSort .= $request->query('sort') ?? 'desc';
 
         return view('purchases.index', [
             'purchases' => $purchases,
@@ -64,7 +64,7 @@ class PurchaseController extends Controller
         $invoice = explode("/", $purchase->invoice);
         $invoice = $invoice[count($invoice) - 1];
 
-        if(!auth()->user()->hasRole('admin') && !auth()->user()->id != $purchase->clientInfo->id) {
+        if(!auth()->user()->hasRole('admin') && auth()->user()->id != $purchase->clientInfo->id) {
             return redirect(route('purchases.index'));
         }
 

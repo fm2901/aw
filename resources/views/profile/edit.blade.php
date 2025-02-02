@@ -18,8 +18,8 @@
                         <div class="card-body col-md-5">
                             <h4 class="text-bold">Security Deposit</h4>
                             <p>Min. Required Deposit: ${{ $user->deposit_min }}</p>
-                            <p>Deposit on File: ${{ $user->deposit_on_file }}</p>
-                            <p>Buying Power: ${{ $user->buying_power }}</p>
+                            <!---<p>Deposit on File: ${{ $user->deposit_on_file }}</p>
+                            <p>Buying Power: ${{ $user->buying_power }}</p>--->
                         </div>
                         @if($user->type == 1)
                             <div class="card-body col-md-5">
@@ -46,7 +46,7 @@
                     </div>
                 </div>
             </div>
-            <!--<div class="col-lg-4 col-md-5 col-sm-12">
+            <div class="col-lg-4 col-md-5 col-sm-12">
                 <div class="card">
                     <h5 class="card-header">Change password</h5>
                     <div class="card-body">
@@ -56,8 +56,8 @@
                             <div class="form-group mb-3">
                                 <input class="form-control mb-2" type="password" name="password" placeholder="New password">
                                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                                <input class="form-control" type="password" name="password_confirmation" placeholder="Repeat new password">
-                                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                                <!--<input class="form-control" type="password" name="password_confirmation" placeholder="Repeat new password">
+                                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />-->
                             </div>
                             <button type="submit" class="btn btn-danger deactivate-account float-end">
                                 Change <i class="bx bx-edit-alt"></i>
@@ -65,7 +65,7 @@
                         </form>
                     </div>
                 </div>
-            </div>-->
+            </div>
         </div>
     </div>
 </x-app-layout>

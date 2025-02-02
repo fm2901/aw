@@ -7,3 +7,9 @@
         @endforeach
     </ul>
 @endif
+
+<style>
+    .text-red-600 {
+        color: #fb6565;
+    }
+</style>

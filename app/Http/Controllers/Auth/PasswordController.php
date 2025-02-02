@@ -32,7 +32,7 @@ class PasswordController extends Controller
     {
         $request->validate([
             'password' => ['required', Rules\Password::defaults()],
-            'password_confirmation' => ['required', Rules\Password::defaults()],
+            //'password_confirmation' => ['required', Rules\Password::defaults()],
         ]);
 
         $request->user()->update([

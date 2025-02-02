@@ -32,7 +32,7 @@ class UserController extends Controller
         $rowperpage = 10;
         $curPage = intval($request->get("p")) > 0 ? $request->get("p") : 1;
         $start = ($curPage-1) * $rowperpage;
-        $pagesCount = round($totalRecords / $rowperpage);
+        $pagesCount = ceil($totalRecords / $rowperpage);
 
         $users = User::skip($start)
             ->take($rowperpage)

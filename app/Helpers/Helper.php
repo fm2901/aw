@@ -83,7 +83,7 @@ class Helper
         $selected = $current > 0 ? $currentState->name : "All";
         unset($query["sort"]);
         $menu = '<div class="dropdown menu-dropdown col-md-6 col-sm-6 w-50" style="text-align:end">
-                        <a class="btn dropdown-toggle font-black" style="color: black; font-size: 1.3em" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="btn dropdown-toggle font-black order-filter" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             '.$selected.'
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -99,9 +99,9 @@ class Helper
         return $menu;
     }
     public static function printOrdersSortMenu($query=array()) {
-        $selected =  isset($query["sort"]) && $query["sort"] == 'desc' ? "Newest" : "Oldest";
+        $selected =  isset($query["sort"]) && $query["sort"] == 'asc' ? "Oldest" : "Newest";
         $menu = '<div class="dropdown menu-dropdown col-md-6 col-sm-6 w-50">
-                        <a class="btn dropdown-toggle font-black" style="color: black; font-size: 1.3em" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="btn dropdown-toggle font-black order-filter" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             '.$selected.'
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">

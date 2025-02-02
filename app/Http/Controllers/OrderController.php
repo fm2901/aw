@@ -38,7 +38,7 @@ class OrderController extends Controller
             $filter["user_id"] = $request->query('user');
         }
 
-        $sort = $request->query('sort') ?? "asc";
+        $sort = $request->query('sort') ?? "desc";
 
         $queryFilter = [];
         if($request->query('query')) {
@@ -48,7 +48,7 @@ class OrderController extends Controller
         $rowperpage = 10;
         $curPage = intval($request->get("p")) > 0 ? $request->get("p") : 1;
         $start = ($curPage-1) * $rowperpage;
-        $pagesCount = round($totalRecords / $rowperpage,0,PHP_ROUND_HALF_UP);
+        $pagesCount = ceil($totalRecords / $rowperpage);
 
         $orders = Order::where($filter)
                             ->orderBy('id', $sort)
@@ -173,33 +173,18 @@ class OrderController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $input_data = $request->all();
-        /*$validator = Validator::make(
-            $input_data, [
-            'photo.*' => 'required|mimes:jpg,jpeg,png|max:20000'
-        ],[
-                'photo.*.required' => 'Пожалуйста выберите фотографии',
-                'photo.*.mimes' => 'Поддерживаются только форматы jpg, jpeg, png',
-                'photo.*.max' => 'Максимальный размер файла 20MB',
-            ]
-        );
-        $filePath = "";
-
-        if(!$validator->fails()) {
-            $file = $request->file('photo');
-
-            $fileName = $file->getClientOriginalName();
-            $fileContent = file_get_contents($file->getRealPath());
-
-            $filePath = "/cars/".time()."_".$fileName;
-            Storage::put($filePath, $fileContent);
-        }*/
-
         $request->validate([
             'model' => 'required|string|max:255',
             'years' => 'string',
             'colors' => 'string',
-            'max_miles' => 'int',
-            'max_bid' => 'int',
+            'max_miles' => 'integer',
+            'max_bid' => 'integer',
+        ], [
+            'model.required' => 'Model is required.',
+            'years.required' => 'Years is required.',
+            'colors.required' => 'Colors is required.',
+            'max_miles.required' => 'Max miles is required.',
+            'max_bid.required' => 'Max bid is required.',
         ]);
 
         $userId = $request->user()->hasRole('admin') ? $request->user_id : $request->user()->id;

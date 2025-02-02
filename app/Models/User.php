@@ -160,10 +160,10 @@ class User extends Authenticatable
     public function getName(): string
     {
         if ($this->account_type == 1) {
-            return $this->name;
+            return $this?->name;
         }
 
-        return $this->middle_name . ', ' . $this->first_name . ' ' . $this->last_name;
+        return $this->first_name . ' ' . $this->last_name . ' ' . $this->middle_name;
     }
 
     public function getShortName(): string

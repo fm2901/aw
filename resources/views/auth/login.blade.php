@@ -45,11 +45,11 @@
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-show"></i></span>
                                     <x-input-error :messages="$errors->get('password')" class="mt-2 text-red-600" />
                                 </div>
-                                <div style="text-align: right">
-                                    <a href="{{ route('password.email') }}">
-                                        <small>Forgot Password?</small>
-                                    </a>
-                                </div>
+{{--                                <div style="text-align: right">--}}
+{{--                                    <a href="{{ route('password.email') }}">--}}
+{{--                                        <small>Forgot Password?</small>--}}
+{{--                                    </a>--}}
+{{--                                </div>--}}
                             </div>
                             <div class="mb-3">
                                 <div class="form-check">
